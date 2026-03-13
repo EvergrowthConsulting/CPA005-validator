@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CPA005 Structural Validator</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>CPA005 Structural Validator</h1>
+
+    <p class="privacy">
+      This validator runs entirely in your browser. Files are not uploaded, stored, or transmitted.
+    </p>
+
+    <section class="panel">
+      <label for="fileInput">Select CPA005 file</label>
+      <input id="fileInput" type="file" accept=".txt,.dat,.asc,*/*" />
+      <button id="validateButton" type="button">Validate</button>
+    </section>
+
+    <section class="panel">
+      <h2>Summary</h2>
+      <div id="summary">No file loaded.</div>
+    </section>
+
+    <section class="panel">
+      <h2>Findings</h2>
+      <div id="results"></div>
+    </section>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

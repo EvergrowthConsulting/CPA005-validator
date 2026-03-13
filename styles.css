@@ -1,0 +1,52 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #111;
+  color: #eee;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.panel {
+  background: #1c1c1c;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+label,
+input,
+button {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+button {
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+}
+
+.privacy {
+  color: #bbb;
+}
+
+.finding {
+  padding: 0.5rem 0.75rem;
+  border-left: 4px solid #666;
+  margin-bottom: 0.5rem;
+  background: #171717;
+}
+
+.finding.fatal { border-left-color: #ff4d4d; }
+.finding.error { border-left-color: #ff9f43; }
+.finding.warning { border-left-color: #f6e58d; color: #f6e58d; }
+.finding.info { border-left-color: #7ed6df; }
+
+.code {
+  font-family: Consolas, monospace;
+}
