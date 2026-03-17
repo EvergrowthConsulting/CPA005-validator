@@ -1,7 +1,9 @@
 import { splitIntoRecords } from "./src/recordSplitter.js";
-import { validateFileStructure } from "./src/validator.js";
-import { parseHeaderRecord } from "./src/parser.js";
+import { validateFileStructure } from "./src/validators/fileValidator.js";
+import { parseHeaderRecord, parseTrailerRecord, parsePaymentLineRecord } from "./src/parser.js";
 import { validateHeaderRecord } from "./src/validators/headerValidator.js";
+import { validateFooterRecord } from "./src/validators/footerValidator.js";
+import { validatePaymentLine } from "./src/validators/paymentLineValidator.js";
 
 const fileInput = document.getElementById("fileInput");
 const validateButton = document.getElementById("validateButton");
@@ -21,14 +23,24 @@ validateButton.addEventListener("click", async () => {
   }
 
   try {
+    // file structure first
     const rawText = await file.text();
     const records = splitIntoRecords(rawText);
     findings.push(...validateFileStructure(records));
 
-
+    // check header record
     const header = parseHeaderRecord(records[0].raw);
+    findings.push(...validateHeaderRecord(header, 1));
 
-    findings.push(...validateHeaderRecord(header));
+    // check detail record(s)
+    for (let i = 1; i < records.length-1; i++) {
+      const paymentLine = parsePaymentLineRecord(records[i].raw, i + 1);
+      findings.push(...validatePaymentLine(paymentLine));
+    }
+
+    // check footer record
+    const footer = parseTrailerRecord(records[records.length - 1].raw);
+    findings.push(...validateFooterRecord(footer, records.length));
 
     renderSummary(file.name, records, findings);
     renderFindings(findings);
@@ -70,7 +82,7 @@ function renderFindings(findings) {
     .map(f => `
       <div class="finding ${escapeHtml(f.severity)}">
         <strong>${escapeHtml(f?.severity?.toUpperCase())}</strong>
-        ${f.recordNumber ? ` - Record ${f.recordNumber}` : ""}
+        ${f.lineNumber ? ` - Line ${f.lineNumber}` : ""}
         <div>${escapeHtml(f.message)}</div>
       </div>
     `)
@@ -85,3 +97,4 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
 }
+

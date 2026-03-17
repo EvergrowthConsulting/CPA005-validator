@@ -1,7 +1,7 @@
-export function finding(severity, message, recordNumber = null) {
+export function finding(lineNumber, severity, message) {
   return {
+    lineNumber,
     severity,
-    message,
-    recordNumber
+    message
   };
 }
