@@ -50,3 +50,13 @@ button {
 .code {
   font-family: Consolas, monospace;
 }
+
+.disclaimer {
+  font-size: 0.75em;
+  color: #666;
+  margin-top: 40px;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+  max-width: 1000px;
+  margin: 0 auto;
+}
